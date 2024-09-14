@@ -10,7 +10,7 @@ slength = 8
 prob = 0
 
 function init()
-  rndm()
+  reset()
   input[1].mode('change', 1, 0.05, 'rising')
   input[1].change = handleChangeClock
   print('sequencer script loaded')
@@ -37,17 +37,18 @@ end
 -- user functions to invoke from druid below --
 
 function reset(length)
-    math.randomseed(time())
-    local seq = {}
-    local noteOptions = {0, 2, 4, 5, 7, 9, 11, 12, 14, 16, 17, 19, 21, 23}
-    for i=1,length do
-      local note = noteOptions[math.floor(math.random(1, 14))]
-      local step = {note = note, slew = 0, eg = ar()}
-      table.insert(seq, step)
-    end
-    sequence = seq
-    index = 0
-    show()
+  length = length or slength
+  math.randomseed(time())
+  local seq = {}
+  local noteOptions = {0, 2, 4, 5, 7, 9, 11, 12, 14, 16, 17, 19, 21, 23}
+  for i=1,length do
+    local note = noteOptions[math.floor(math.random(1, 14))]
+    local step = {note = note, slew = 0, eg = ar()}
+    table.insert(seq, step)
+  end
+  sequence = seq
+  index = 0
+  show()
   end
 
 function rndm(first, last)
